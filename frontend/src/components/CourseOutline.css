@@ -1,0 +1,98 @@
+.outline-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.outline-header {
+  margin-bottom: 24px;
+}
+
+.course-info-card {
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.course-info-card h2 {
+  margin-bottom: 16px;
+}
+
+.course-meta {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.module-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.module-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.module-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.module-number {
+  background: #1890ff;
+  color: white;
+  padding: 2px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.module-description {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+
+.module-meta {
+  margin-bottom: 16px;
+}
+
+.objectives-list {
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+.objectives-list li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.key-concepts {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.concepts-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .outline-container {
+    padding: 16px;
+  }
+
+  .module-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

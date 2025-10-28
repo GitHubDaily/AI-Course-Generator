@@ -1,0 +1,250 @@
+flowMeta:
+  name: CourseOutlineGenerat
+  description: 课程大纲生成器
+  avatarIcon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/common/emojiitem_00_10@2x.png
+  avatarColor: '#FFEAD5'
+  advancedConfig: '{"prologue":{"enabled":true,"inputExample":["","",""]}}'
+  category: 13
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+    dragging: false
+    selected: false
+    width: 362
+    height: 130
+    position:
+      x: 0
+      y: 29.07617872006425
+    positionAbsolute:
+      x: -654.0491760376599
+      y: 347.2514292101659
+    type: custom
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: ''
+      nodeMeta:
+        aliasName: 开始节点
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: 0918514b-72a8-4646-8dd9-ff4a8fc26d44
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 用户本轮对话输入内容
+        required: true
+        deleteDisabled: true
+      nodeParam: {
+        }
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
+      updatable: false
+  - id: node-end::cda617af-551e-462e-b3b8-3bb9a041bf88
+    dragging: false
+    selected: true
+    width: 362
+    height: 90
+    position:
+      x: 912.8188088675524
+      y: 29.076207241165307
+    positionAbsolute:
+      x: 771.9447207324268
+      y: 405.91986149739034
+    type: custom
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 结束
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 结束节点
+        nodeType: 基础节点
+      inputs:
+      - id: 82de2b42-a059-4c98-bffb-b6b4800fcac9
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              id: 2ebec0ee-acaf-4e6c-b081-d5ee5430eaac
+              nodeId: spark-llm::6251b9d1-93ab-4a87-8ccd-abdc20840047
+              name: output
+            contentErrMsg: ''
+        fileType: ''
+      outputs: [
+        ]
+      nodeParam:
+        template: ''
+        streamOutput: true
+        outputMode: 0
+        templateErrMsg: 值不能为空
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
+      updatable: false
+  - id: spark-llm::6251b9d1-93ab-4a87-8ccd-abdc20840047
+    dragging: false
+    selected: false
+    width: 362
+    height: 148
+    position:
+      x: 456.4094329548773
+      y: 0
+    positionAbsolute:
+      x: -28.189268231460233
+      y: 343.3504680351504
+    type: custom
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 课程大纲生成
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        nodeType: 基础节点
+        aliasName: 大模型
+      inputs:
+      - id: 974b0f80-ebb1-4085-8a44-fe520ac67f93
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              id: 0918514b-72a8-4646-8dd9-ff4a8fc26d44
+              nodeId: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+              name: AGENT_USER_INPUT
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 2ebec0ee-acaf-4e6c-b081-d5ee5430eaac
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: ''
+      nodeParam:
+        maxTokens: 2048
+        topK: 4
+        auditing: default
+        template: |-
+          请分析以下小学课本内容，生成一个完整的课程大纲。
+
+          【课本内容】
+          {{input}}
+
+          【输出要求】
+          请严格按照以下 JSON 格式输出课程大纲，外面无需再到包括其他内容：
+
+          {
+            "course_title": "课程标题（要有吸引力，包含主题）",
+            "grade": "年级",
+            "subject": "学科",
+            "total_modules": 模块总数,
+            "estimated_hours": 预计总课时,
+            "modules": [
+              {
+                "module_id": "M001",
+                "title": "模块标题（简洁、吸引人）",
+                "description": "模块描述（30-50字，说明这个模块要学什么）",
+                "sequence": 1,
+                "duration_minutes": 80,
+                "learning_objectives": [
+                  "学习目标1（要具体，以学生为主语，如：能够...）",
+                  "学习目标2（要可衡量）",
+                  "学习目标3（包含知识、能力、情感目标）"
+                ],
+                "key_concepts": [
+                  "关键概念1",
+                  "关键概念2",
+                  "关键概念3"
+                ],
+                "prerequisites": []
+              }
+            ]
+          }
+
+          【重要提示】
+
+          1. 必须输出完整的、格式正确的 JSON
+          2. 不要输出任何 JSON 之外的文字说明
+          3. 模块数量控制在 3-5 个
+          4. 每个模块的学习目标要 3-5 个
+          5. 关键概念固定 3 个
+          6. course_title 要包含年级、学科和主题
+          7. 模块之间要有逻辑顺序（由易到难，由浅入深）
+          8. 学习目标要符合小学生水平
+
+          现在请开始生成课程大纲：
+        respFormat: 0
+        appId: 680ab54f
+        uid: fa96dc6d-533c-4f09-a6c8-61d336868472
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        templateErrMsg: ''
+        llmId: 243013640
+        domain: anthropic/claude-sonnet-4.5
+        serviceId: anthropic/claude-sonnet-4.5
+        url: https://openrouter.ai/api/v1/chat/completions
+        modelId: 2
+        isThink: false
+        multiMode: false
+        modelName: Claude Sonnet 4.5
+        modelEnabled: true
+        llmIdErrMsg: ''
+        source: openai
+        extraParams:
+          temperature: 1
+        systemTemplate: |-
+          你是一位资深的小学教育专家和课程设计师，擅长分析课本内容并设计结构化的教学大纲。
+          你的任务是：
+          1. 仔细分析提供的课本内容
+          2. 提取关键的教学要点
+          3. 设计合理的课程模块划分
+          4. 为每个模块设定清晰的学习目标
+          5. 输出结构化的 JSON 格式大纲
+          要求：
+          - 适合小学生的认知水平
+          - 学习目标要具体、可衡量
+          - 模块之间要有逻辑递进关系
+          - 严格按照指定的 JSON 格式输出
+        setAnswerContentErrMsg: ''
+      retryConfig:
+        customOutput: |-
+          {
+            "output": ""
+          }
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/largeModelIcon.png
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
+      updatable: false
+  edges:
+  - source: spark-llm::6251b9d1-93ab-4a87-8ccd-abdc20840047
+    target: node-end::cda617af-551e-462e-b3b8-3bb9a041bf88
+    type: customEdge
+    id: reactflow__edge-spark-llm::6251b9d1-93ab-4a87-8ccd-abdc20840047-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88
+    markerEnd:
+      type: arrow
+      color: '#275EFF'
+    data:
+      edgeType: curve
+  - source: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+    target: spark-llm::6251b9d1-93ab-4a87-8ccd-abdc20840047
+    type: customEdge
+    id: reactflow__edge-node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783-spark-llm::6251b9d1-93ab-4a87-8ccd-abdc20840047
+    markerEnd:
+      type: arrow
+      color: '#275EFF'
+    data:
+      edgeType: curve

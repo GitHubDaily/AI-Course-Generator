@@ -1,0 +1,87 @@
+.detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.detail-header {
+  margin-bottom: 24px;
+}
+
+.detail-header h2 {
+  margin-top: 16px;
+}
+
+.section-card {
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.teaching-section {
+  margin: 16px 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.teaching-section ul {
+  padding-left: 24px;
+  margin-top: 8px;
+}
+
+.teaching-section li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.example-item {
+  margin: 16px 0;
+}
+
+.example-item h4 {
+  color: #1890ff;
+  margin-bottom: 12px;
+}
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-right: 16px;
+}
+
+.exercise-answer {
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  line-height: 2;
+}
+
+.tips-list {
+  padding-left: 24px;
+  margin: 0;
+}
+
+.tips-list li {
+  margin-bottom: 12px;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .detail-container {
+    padding: 16px;
+  }
+
+  .exercise-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

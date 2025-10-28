@@ -1,0 +1,386 @@
+flowMeta:
+  name: ModuleContentGenerat
+  description: 为单个学习模块生成详细的教学内容
+  avatarIcon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/common/emojiitem_00_10@2x.png
+  avatarColor: '#FFEAD5'
+  advancedConfig: '{"prologue":{"enabled":true,"inputExample":["","",""]}}'
+  category: 13
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+    dragging: false
+    selected: false
+    width: 362
+    height: 90
+    position:
+      x: 0
+      y: 28.999996185302734
+    positionAbsolute:
+      x: -45.10901960784315
+      y: 336.70866666666666
+    type: custom
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: success
+      nodeMeta:
+        aliasName: 开始节点
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: 0918514b-72a8-4646-8dd9-ff4a8fc26d44
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 单个模块的完整信息
+        required: true
+        deleteDisabled: true
+      - id: a96c0ff3-fa15-4bfe-9eac-3d441687de71
+        name: TEXTBOOK_CONTENT
+        nameErrMsg: ''
+        schema:
+          type: string
+          properties: [
+            ]
+          default: 相关的课本原文
+        required: true
+      - id: dc0bf878-b946-4def-b49e-af6b84d58aaa
+        name: DETAIL_LEVEL
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 详细程度（"standard" / "detailed"）
+        required: false
+      - id: f970e1a4-4a5e-41ba-b74e-72bf78564768
+        name: EXERCISE_COUNT
+        nameErrMsg: ''
+        schema:
+          type: integer
+          properties: [
+            ]
+          default: 练习题数量（默认 5）
+        required: false
+      nodeParam: {
+        }
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
+      updatable: false
+  - id: node-end::cda617af-551e-462e-b3b8-3bb9a041bf88
+    dragging: false
+    selected: true
+    width: 362
+    height: 130
+    position:
+      x: 998.571223605567
+      y: -59.5227141609148
+    positionAbsolute:
+      x: 998.571223605567
+      y: -59.5227141609148
+    type: custom
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 结束
+      references: [
+        ]
+      status: cancel
+      nodeMeta:
+        aliasName: 结束节点
+        nodeType: 基础节点
+      inputs:
+      - id: 82de2b42-a059-4c98-bffb-b6b4800fcac9
+        name: detailed_content
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              id: 3371d9e4-71b6-4844-9173-3284c117e87b
+              nodeId: spark-llm::5e7f7906-aba9-49cd-8884-a0c7946d8fa5
+              name: detailed_content
+            contentErrMsg: ''
+        fileType: ''
+      - id: e7e65bf0-7c52-4de6-a2aa-bcfdff25bf4f
+        name: module_id
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              id: cde30b54-1415-4e33-a212-92f3218a8e71
+              nodeId: spark-llm::5e7f7906-aba9-49cd-8884-a0c7946d8fa5
+              name: module_id
+            contentErrMsg: ''
+        fileType: ''
+      outputs: [
+        ]
+      nodeParam:
+        template: ''
+        streamOutput: true
+        outputMode: 0
+        templateErrMsg: 值不能为空
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
+      updatable: false
+  - id: spark-llm::5e7f7906-aba9-49cd-8884-a0c7946d8fa5
+    dragging: false
+    selected: false
+    width: 362
+    height: 148
+    position:
+      x: 454.3421168123757
+      y: -65.3157816340376
+    positionAbsolute:
+      x: 454.3421168123757
+      y: -65.3157816340376
+    type: custom
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 详细内容生成
+      labelEdit: false
+      references: [
+        ]
+      status: failed
+      nodeMeta:
+        nodeType: 基础节点
+        aliasName: 大模型
+      inputs:
+      - id: d9429aa4-c7e7-4f7c-ae6f-78334d914ee3
+        name: MODULE_INFO
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              id: 0918514b-72a8-4646-8dd9-ff4a8fc26d44
+              nodeId: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+              name: AGENT_USER_INPUT
+            contentErrMsg: ''
+        fileType: ''
+      - id: d0c9df61-0853-4fa2-a319-9194775ed724
+        name: TEXTBOOK_CONTENT
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              id: a96c0ff3-fa15-4bfe-9eac-3d441687de71
+              nodeId: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+              name: TEXTBOOK_CONTENT
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7f018ccd-2551-461b-8e5a-de6079940fc7
+        name: DETAIL_LEVEL
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              id: dc0bf878-b946-4def-b49e-af6b84d58aaa
+              nodeId: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+              name: DETAIL_LEVEL
+            contentErrMsg: ''
+        fileType: ''
+      - id: 68518075-ff5d-4c0d-a7ba-afd29c07a51e
+        name: EXERCISE_COUNT
+        nameErrMsg: ''
+        schema:
+          type: integer
+          value:
+            type: ref
+            content:
+              id: f970e1a4-4a5e-41ba-b74e-72bf78564768
+              nodeId: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+              name: EXERCISE_COUNT
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 3371d9e4-71b6-4844-9173-3284c117e87b
+        name: detailed_content
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 大模型节点输出(完整的详细内容 JSON)
+      - id: cde30b54-1415-4e33-a212-92f3218a8e71
+        name: module_id
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 从输入解析(模块ID，用于关联)
+        required: false
+      nodeParam:
+        maxTokens: 2048
+        topK: 4
+        auditing: default
+        template: |-
+          请为以下学习模块生成详细的教学内容。
+          【模块信息】
+          {{MODULE_INFO}}
+          【相关课本内容】
+          {{TEXTBOOK_CONTENT}}
+          【生成要求】
+          - 详细程度：{{DETAIL_LEVEL}}
+          - 练习题数量：{{EXERCISE_COUNT}}
+          【输出格式】
+          请严格按照以下 JSON 格式输出：
+          {
+            "module_id": "模块ID",
+            "teaching_plan": {
+              "introduction": {
+                "duration": "时长（如：5分钟）",
+                "activity": "具体的导入活动描述",
+                "teacher_guidance": "教师引导语或操作要点",
+                "expected_outcome": "预期达成的效果"
+              },
+              "main_content": {
+                "duration": "时长（如：25分钟）",
+                "activities": [
+                  {
+                    "name": "活动名称",
+                    "description": "活动详细描述",
+                    "duration": "时长",
+                    "materials": "需要的材料",
+                    "steps": [
+                      "步骤1",
+                      "步骤2",
+                      "步骤3"
+                    ]
+                  }
+                ]
+              },
+              "practice": {
+                "duration": "时长（如：8分钟）",
+                "activities": [
+                  "活动1描述",
+                  "活动2描述"
+                ]
+              },
+              "summary": {
+                "duration": "时长（如：2分钟）",
+                "content": "总结内容",
+                "homework": "课后作业（可选）"
+              }
+            },
+            "examples": [
+              {
+                "title": "案例标题",
+                "content": "案例详细内容（100-200字）",
+                "purpose": "教学目的说明",
+                "how_to_use": "使用建议"
+              }
+            ],
+            "exercises": [
+              {
+                "id": "EX001",
+                "type": "题型（填空/选择/简答/判断）",
+                "question": "题目内容",
+                "options": ["选项A", "选项B"],
+                "answer": "答案",
+                "difficulty": "难度（easy/medium/hard）",
+                "explanation": "答案解析（为什么这样答）",
+                "related_objective": "对应的学习目标"
+              }
+            ],
+            "teaching_tips": [
+              {
+                "category": "类别（重点强调/常见问题/差异化教学/课堂管理）",
+                "tip": "具体建议内容"
+              }
+            ]
+          }
+          【具体要求】
+          1. **教学计划：**
+             - 导入环节（5分钟）：设计吸引学生注意力的活动
+             - 主要内容（25-30分钟）：包含2-3个具体活动，每个活动有清晰的步骤
+             - 练习环节（8-10分钟）：设计互动性强的练习活动
+             - 总结环节（2-5分钟）：梳理重点，布置作业
+          2. **教学案例：**
+             - 生成 2-3 个案例
+             - 贴近学生生活，容易理解
+             - 能够支持教学目标的达成
+             - 每个案例 100-200 字
+          3. **练习题：**
+             - 生成 {EXERCISE_COUNT} 道题
+             - 题型分布：40%基础题（easy）、40%中等题（medium）、20%拓展题（hard）
+             - 包含多种题型：填空、选择、简答、判断等
+             - 每道题必须有答案和详细解析
+             - 解析要说明"为什么这样答"
+          4. **教学建议：**
+             - 生成 3-5 条实用建议
+             - 覆盖：重点强调、常见问题预判、差异化教学、课堂管理
+             - 具体可操作
+          【重要提示】
+          1. 必须输出完整的、格式正确的 JSON
+          2. 不要输出任何 JSON 之外的文字
+          3. 练习题的难度要递进
+          4. 教学活动要具体，教师能直接使用
+          5. 所有内容必须基于提供的模块信息和课本内容
+          6. 时间分配要合理，总时长应接近模块的 duration_minutes
+          现在请开始生成：
+        respFormat: 0
+        appId: 680ab54f
+        uid: fa96dc6d-533c-4f09-a6c8-61d336868472
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        templateErrMsg: ''
+        llmId: 243013640
+        domain: anthropic/claude-sonnet-4.5
+        serviceId: anthropic/claude-sonnet-4.5
+        url: https://openrouter.ai/api/v1/chat/completions
+        modelId: 2
+        isThink: false
+        multiMode: false
+        modelName: Claude Sonnet 4.5
+        modelEnabled: true
+        llmIdErrMsg: ''
+        source: openai
+        extraParams:
+          temperature: 0.8
+        systemTemplate: |-
+          你是一位经验丰富的小学教师和教学设计专家，擅长设计具体的教学活动和练习题。
+          你的任务是：
+          1. 根据模块的学习目标，设计详细的教学计划
+          2. 创造贴近学生生活的教学案例
+          3. 编写不同难度的练习题（含答案和解析）
+          4. 提供实用的教学建议
+          要求：
+          - 教学设计要符合小学生的认知水平和年龄特点
+          - 教学活动要具体可操作，教师能直接使用
+          - 练习题要有层次性，从易到难
+          - 案例要生动有趣，贴近学生生活
+          - 答案和解析要准确、易懂
+          - 严格按照 JSON 格式输出
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/largeModelIcon.png
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
+      updatable: false
+  edges:
+  - source: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
+    sourceHandle: ''
+    target: spark-llm::5e7f7906-aba9-49cd-8884-a0c7946d8fa5
+    type: customEdge
+    id: reactflow__edge-node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783-spark-llm::5e7f7906-aba9-49cd-8884-a0c7946d8fa5
+    markerEnd:
+      type: arrow
+      color: '#275EFF'
+    data:
+      edgeType: curve
+  - source: spark-llm::5e7f7906-aba9-49cd-8884-a0c7946d8fa5
+    target: node-end::cda617af-551e-462e-b3b8-3bb9a041bf88
+    type: customEdge
+    id: reactflow__edge-spark-llm::5e7f7906-aba9-49cd-8884-a0c7946d8fa5-node-end::cda617af-551e-462e-b3b8-3bb9a041bf88
+    markerEnd:
+      type: arrow
+      color: '#275EFF'
+    data:
+      edgeType: curve
