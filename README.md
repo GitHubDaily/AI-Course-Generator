@@ -41,15 +41,15 @@
 
 在开始之前，请确保你已经：
 
-✅ 安装了 Python 3.10 或更高版本
-✅ 安装了 Node.js 16 或更高版本
-✅ 在本地成功部署了讯飞星辰 Agent 开发平台
-✅ 在讯飞星辰 Agent 平台创建了工作流并发布
+- ✅ 安装了 Python 3.10 或更高版本
+- ✅ 安装了 Node.js 16 或更高版本
+- ✅ 在本地成功部署了讯飞星辰 Agent 开发平台
+- ✅ 在讯飞星辰 Agent 平台创建了工作流并发布
 
 ### 1. 克隆项目
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/GitHubDaily/AI-Course-Generator.git
 cd ai-course-generator
 ```
 
