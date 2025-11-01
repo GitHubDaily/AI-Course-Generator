@@ -1,6 +1,15 @@
 .app {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 16px 24px;
+  z-index: 1000;
 }
 
 .app-container {

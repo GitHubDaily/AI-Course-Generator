@@ -1,6 +1,6 @@
 flowMeta:
   name: CourseOutlineGenerat
-  description: Course Outline Generator
+  description: 课程大纲生成器
   avatarIcon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/common/emojiitem_00_10@2x.png
   avatarColor: '#FFEAD5'
   advancedConfig: '{"prologue":{"enabled":true,"inputExample":["","",""]}}'
@@ -23,11 +23,11 @@ flowData:
     data:
       allowInputReference: false
       allowOutputReference: true
-      label: Start
+      label: 开始
       status: ''
       nodeMeta:
-        aliasName: Start Node
-        nodeType: Basic Node
+        aliasName: 开始节点
+        nodeType: 基础节点
       inputs: [
         ]
       outputs:
@@ -36,13 +36,13 @@ flowData:
         nameErrMsg: ''
         schema:
           type: string
-          default: User input content for the current conversation
+          default: 用户本轮对话输入内容
         required: true
         deleteDisabled: true
       nodeParam: {
         }
       icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
-      description: The starting node of the workflow, used to define business variable information required for process invocation.
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
       updatable: false
   - id: node-end::cda617af-551e-462e-b3b8-3bb9a041bf88
     dragging: false
@@ -59,13 +59,13 @@ flowData:
     data:
       allowInputReference: true
       allowOutputReference: false
-      label: End
+      label: 结束
       references: [
         ]
       status: ''
       nodeMeta:
-        aliasName: End Node
-        nodeType: Basic Node
+        aliasName: 结束节点
+        nodeType: 基础节点
       inputs:
       - id: 82de2b42-a059-4c98-bffb-b6b4800fcac9
         name: output
@@ -86,9 +86,9 @@ flowData:
         template: ''
         streamOutput: true
         outputMode: 0
-        templateErrMsg: Value cannot be empty
+        templateErrMsg: 值不能为空
       icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
-      description: The ending node of the workflow, used to output the final results after workflow execution.
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
       updatable: false
   - id: spark-llm::6251b9d1-93ab-4a87-8ccd-abdc20840047
     dragging: false
@@ -105,14 +105,14 @@ flowData:
     data:
       allowInputReference: true
       allowOutputReference: true
-      label: Course Outline Generation
+      label: 课程大纲生成
       labelEdit: false
       references: [
         ]
       status: ''
       nodeMeta:
-        nodeType: Basic Node
-        aliasName: Large Model
+        nodeType: 基础节点
+        aliasName: 大模型
       inputs:
       - id: 974b0f80-ebb1-4085-8a44-fe520ac67f93
         name: input
@@ -139,54 +139,54 @@ flowData:
         topK: 4
         auditing: default
         template: |-
-          Please analyze the following elementary school textbook content and generate a complete course outline.
+          请分析以下小学课本内容，生成一个完整的课程大纲。
 
-          【Textbook Content】
+          【课本内容】
           {{input}}
 
-          【Output Requirements】
-          Please strictly output the course outline in the following JSON format without any additional content:
+          【输出要求】
+          请严格按照以下 JSON 格式输出课程大纲，外面无需再到包括其他内容：
 
           {
-            "course_title": "Course title (should be attractive and include the topic)",
-            "grade": "Grade level",
-            "subject": "Subject",
-            "total_modules": Total number of modules,
-            "estimated_hours": Estimated total class hours,
+            "course_title": "课程标题（要有吸引力，包含主题）",
+            "grade": "年级",
+            "subject": "学科",
+            "total_modules": 模块总数,
+            "estimated_hours": 预计总课时,
             "modules": [
               {
                 "module_id": "M001",
-                "title": "Module title (concise and attractive)",
-                "description": "Module description (30-50 words, explaining what will be learned)",
+                "title": "模块标题（简洁、吸引人）",
+                "description": "模块描述（30-50字，说明这个模块要学什么）",
                 "sequence": 1,
                 "duration_minutes": 80,
                 "learning_objectives": [
-                  "Learning objective 1 (specific, student-centered, e.g., 'Students will be able to...')",
-                  "Learning objective 2 (measurable)",
-                  "Learning objective 3 (including knowledge, skills, and affective goals)"
+                  "学习目标1（要具体，以学生为主语，如：能够...）",
+                  "学习目标2（要可衡量）",
+                  "学习目标3（包含知识、能力、情感目标）"
                 ],
                 "key_concepts": [
-                  "Key concept 1",
-                  "Key concept 2",
-                  "Key concept 3"
+                  "关键概念1",
+                  "关键概念2",
+                  "关键概念3"
                 ],
                 "prerequisites": []
               }
             ]
           }
 
-          【Important Notes】
+          【重要提示】
 
-          1. Must output complete, properly formatted JSON
-          2. Do not output any text other than JSON
-          3. Number of modules should be between 3-5
-          4. Each module should have 3-5 learning objectives
-          5. Exactly 3 key concepts required
-          6. course_title should include grade, subject, and topic
-          7. Modules should be logically ordered (from easy to hard, shallow to deep)
-          8. Learning objectives should be appropriate for elementary school level
+          1. 必须输出完整的、格式正确的 JSON
+          2. 不要输出任何 JSON 之外的文字说明
+          3. 模块数量控制在 3-5 个
+          4. 每个模块的学习目标要 3-5 个
+          5. 关键概念固定 3 个
+          6. course_title 要包含年级、学科和主题
+          7. 模块之间要有逻辑顺序（由易到难，由浅入深）
+          8. 学习目标要符合小学生水平
 
-          Now please generate the course outline:
+          现在请开始生成课程大纲：
         respFormat: 0
         appId: 680ab54f
         uid: fa96dc6d-533c-4f09-a6c8-61d336868472
@@ -208,18 +208,18 @@ flowData:
         extraParams:
           temperature: 1
         systemTemplate: |-
-          You are an experienced elementary school education expert and curriculum designer, skilled at analyzing textbook content and designing structured teaching outlines.
-          Your tasks:
-          1. Carefully analyze the provided textbook content
-          2. Extract key teaching points
-          3. Design reasonable course module divisions
-          4. Set clear learning objectives for each module
-          5. Output a structured JSON format outline
-          Requirements:
-          - Appropriate for elementary school students' cognitive level
-          - Learning objectives should be specific and measurable
-          - Modules should have logical progression
-          - Strictly follow the specified JSON format
+          你是一位资深的小学教育专家和课程设计师，擅长分析课本内容并设计结构化的教学大纲。
+          你的任务是：
+          1. 仔细分析提供的课本内容
+          2. 提取关键的教学要点
+          3. 设计合理的课程模块划分
+          4. 为每个模块设定清晰的学习目标
+          5. 输出结构化的 JSON 格式大纲
+          要求：
+          - 适合小学生的认知水平
+          - 学习目标要具体、可衡量
+          - 模块之间要有逻辑递进关系
+          - 严格按照指定的 JSON 格式输出
         setAnswerContentErrMsg: ''
       retryConfig:
         customOutput: |-
@@ -227,7 +227,7 @@ flowData:
             "output": ""
           }
       icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/largeModelIcon.png
-      description: Based on the input prompt, calls the selected large model to respond to the prompt
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
       updatable: false
   edges:
   - source: spark-llm::6251b9d1-93ab-4a87-8ccd-abdc20840047

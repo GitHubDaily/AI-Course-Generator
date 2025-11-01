@@ -1,0 +1,13 @@
+.language-switcher {
+  font-size: 14px;
+  padding: 4px 12px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.language-switcher:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+}

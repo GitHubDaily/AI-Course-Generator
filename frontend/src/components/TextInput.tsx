@@ -3,8 +3,8 @@
  * 用于输入课本内容和配置参数
  */
 
-import { useState } from 'react';
 import { Input, Button, Form, InputNumber, Space, Card } from 'antd';
+import { useTranslation } from 'react-i18next';
 import type { GenerateOutlineRequest } from '../types/course';
 import './TextInput.css';
 
@@ -16,6 +16,7 @@ interface TextInputProps {
 }
 
 const TextInput: React.FC<TextInputProps> = ({ onGenerate, loading }) => {
+  const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
 
   const handleSubmit = (values: any) => {
@@ -29,7 +30,9 @@ const TextInput: React.FC<TextInputProps> = ({ onGenerate, loading }) => {
   };
 
   const loadSampleText = () => {
-    const sampleText = `第1课 春天来了
+    const isEnglish = i18n.language === 'en';
+
+    const sampleTextChinese = `第1课 春天来了
 
 春天来了，春天来了！
 小草从地下探出头来，那是春天的眉毛吧？
@@ -41,18 +44,38 @@ const TextInput: React.FC<TextInputProps> = ({ onGenerate, loading }) => {
 她在柳枝上荡秋千，在风筝尾巴上摇啊摇；
 她在喜鹊、杜鹃嘴里叫，在桃花、杏花枝头笑……`;
 
+    const sampleTextEnglish = `Lesson 1: The Water Cycle
+
+Water is essential for all life on Earth. It moves through a continuous cycle called the water cycle.
+
+The water cycle has four main stages:
+
+1. Evaporation: The sun heats water in rivers, lakes, and oceans. The water turns into vapor and rises into the air.
+
+2. Condensation: As water vapor rises, it cools and turns back into tiny water droplets, forming clouds.
+
+3. Precipitation: When clouds become heavy with water, the droplets fall back to Earth as rain, snow, sleet, or hail.
+
+4. Collection: Water collects in rivers, lakes, and oceans, and the cycle begins again.
+
+This process repeats continuously, ensuring that water is constantly recycled through our environment. Understanding the water cycle helps us appreciate how important it is to conserve and protect our water resources.`;
+
+    const sampleText = isEnglish ? sampleTextEnglish : sampleTextChinese;
+    const gradeLevel = isEnglish ? 'Grade 4' : '三年级';
+    const subject = isEnglish ? 'Science' : '语文';
+
     form.setFieldsValue({
       textbook_content: sampleText,
-      grade_level: '三年级',
-      subject: '语文',
+      grade_level: gradeLevel,
+      subject: subject,
       module_count: 3,
     });
   };
 
   return (
     <div className="text-input-container">
-      <Card title="AI 课程生成系统" className="input-card">
-        <p className="subtitle">从课本到课程，只需一分钟</p>
+      <Card title={t('appTitle')} className="input-card">
+        <p className="subtitle">{t('appSubtitle')}</p>
 
         <Form
           form={form}
@@ -61,27 +84,27 @@ const TextInput: React.FC<TextInputProps> = ({ onGenerate, loading }) => {
           initialValues={{ module_count: 4 }}
         >
           <Form.Item
-            label="课本文本内容"
+            label={t('textbookContent')}
             name="textbook_content"
-            rules={[{ required: true, message: '请输入课本内容' }]}
+            rules={[{ required: true, message: t('textbookRequired') }]}
           >
             <TextArea
               rows={12}
-              placeholder="请输入课本文本内容..."
+              placeholder={t('textbookPlaceholder')}
               className="text-area"
             />
           </Form.Item>
 
           <Space direction="horizontal" size="middle" style={{ width: '100%' }}>
-            <Form.Item label="年级" name="grade_level" style={{ marginBottom: 0 }}>
-              <Input placeholder="如：三年级" style={{ width: 150 }} />
+            <Form.Item label={t('gradeLevel')} name="grade_level" style={{ marginBottom: 0 }}>
+              <Input placeholder={t('gradePlaceholder')} style={{ width: 150 }} />
             </Form.Item>
 
-            <Form.Item label="学科" name="subject" style={{ marginBottom: 0 }}>
-              <Input placeholder="如：语文" style={{ width: 150 }} />
+            <Form.Item label={t('subject')} name="subject" style={{ marginBottom: 0 }}>
+              <Input placeholder={t('subjectPlaceholder')} style={{ width: 150 }} />
             </Form.Item>
 
-            <Form.Item label="模块数量" name="module_count" style={{ marginBottom: 0 }}>
+            <Form.Item label={t('moduleCount')} name="module_count" style={{ marginBottom: 0 }}>
               <InputNumber min={2} max={6} style={{ width: 120 }} />
             </Form.Item>
           </Space>
@@ -94,19 +117,19 @@ const TextInput: React.FC<TextInputProps> = ({ onGenerate, loading }) => {
                 loading={loading}
                 size="large"
               >
-                生成课程大纲
+                {t('generateOutline')}
               </Button>
               <Button onClick={loadSampleText} size="large">
-                加载示例文本
+                {t('loadSample')}
               </Button>
             </Space>
           </Form.Item>
         </Form>
 
         <div className="feature-list">
-          <span>✓ 快速生成</span>
-          <span>✓ 结构清晰</span>
-          <span>✓ 智能分析</span>
+          <span>✓ {t('featureFast')}</span>
+          <span>✓ {t('featureStructured')}</span>
+          <span>✓ {t('featureSmart')}</span>
         </div>
       </Card>
     </div>

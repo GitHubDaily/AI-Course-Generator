@@ -5,6 +5,7 @@
 
 import { Card, Tag, Button, Collapse, Space, Typography } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import type { CourseOutline, CourseModule } from '../types/course';
 import './CourseOutline.css';
 
@@ -22,6 +23,8 @@ const CourseOutlineComponent: React.FC<CourseOutlineProps> = ({
   onBack,
   onViewDetail,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="outline-container">
       <div className="outline-header">
@@ -30,34 +33,34 @@ const CourseOutlineComponent: React.FC<CourseOutlineProps> = ({
           onClick={onBack}
           size="large"
         >
-          返回
+          {t('back')}
         </Button>
       </div>
 
       <Card className="course-info-card">
         <Title level={2}>{outline.course_title}</Title>
         <Space size="large" className="course-meta">
-          <Text>年级：{outline.grade}</Text>
-          <Text>学科：{outline.subject}</Text>
-          <Text>{outline.total_modules} 个模块</Text>
-          <Text>预计 {outline.estimated_hours} 课时</Text>
+          <Text>{t('grade')}：{outline.grade}</Text>
+          <Text>{t('subject')}：{outline.subject}</Text>
+          <Text>{outline.total_modules} {t('modules')}</Text>
+          <Text>{t('estimatedHours', { hours: outline.estimated_hours })}</Text>
         </Space>
       </Card>
 
       <div className="modules-list">
-        {outline.modules.map((module, index) => (
+        {outline.modules.map((module) => (
           <Card
             key={module.module_id}
             className="module-card"
             title={
               <div className="module-title">
-                <span className="module-number">模块 {module.sequence}</span>
+                <span className="module-number">{t('moduleNumber', { number: module.sequence })}</span>
                 <span>{module.title}</span>
               </div>
             }
             extra={
               <Button type="primary" onClick={() => onViewDetail(module)}>
-                查看详情
+                {t('viewDetail')}
               </Button>
             }
           >
@@ -66,11 +69,11 @@ const CourseOutlineComponent: React.FC<CourseOutlineProps> = ({
             </Paragraph>
 
             <div className="module-meta">
-              <Text type="secondary">时长：{module.duration_minutes} 分钟</Text>
+              <Text type="secondary">{t('duration', { minutes: module.duration_minutes })}</Text>
             </div>
 
             <Collapse ghost>
-              <Panel header="🎯 学习目标" key="objectives">
+              <Panel header={`🎯 ${t('learningObjectives')}`} key="objectives">
                 <ul className="objectives-list">
                   {module.learning_objectives.map((obj, i) => (
                     <li key={i}>{obj}</li>
@@ -80,7 +83,7 @@ const CourseOutlineComponent: React.FC<CourseOutlineProps> = ({
             </Collapse>
 
             <div className="key-concepts">
-              <Text strong>💡 关键概念：</Text>
+              <Text strong>💡 {t('keyConcepts')}：</Text>
               <div className="concepts-tags">
                 {module.key_concepts.map((concept, i) => (
                   <Tag key={i} color="blue">

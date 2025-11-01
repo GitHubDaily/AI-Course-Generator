@@ -4,11 +4,15 @@
  */
 
 import { useState } from 'react';
-import { message } from 'antd';
+import { message, ConfigProvider } from 'antd';
+import { useTranslation } from 'react-i18next';
+import zhCN from 'antd/locale/zh_CN';
+import enUS from 'antd/locale/en_US';
 import TextInput from './components/TextInput';
 import CourseOutlineComponent from './components/CourseOutline';
 import ModuleDetailComponent from './components/ModuleDetail';
 import Loading from './components/Loading';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import { generateOutline, generateDetail } from './services/api';
 import type {
   ViewType,
@@ -20,10 +24,13 @@ import type {
 import './App.css';
 
 function App() {
+  const { t, i18n } = useTranslation();
+  const [locale, setLocale] = useState(i18n.language === 'zh' ? zhCN : enUS);
+
   // 视图状态
   const [view, setView] = useState<ViewType>('input');
   const [loading, setLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState('正在处理中...');
+  const [loadingMessage, setLoadingMessage] = useState(t('loading'));
 
   // 数据状态
   const [outline, setOutline] = useState<CourseOutline | null>(null);
@@ -36,7 +43,7 @@ function App() {
    */
   const handleGenerateOutline = async (params: GenerateOutlineRequest) => {
     setLoading(true);
-    setLoadingMessage('正在生成课程大纲，请稍候...');
+    setLoadingMessage(t('generatingOutline'));
 
     try {
       // 保存课本内容用于后续详情生成
@@ -47,10 +54,10 @@ function App() {
 
       setOutline(result);
       setView('outline');
-      message.success('课程大纲生成成功！');
+      message.success(t('outlineSuccess'));
     } catch (error: any) {
       console.error('生成大纲失败:', error);
-      message.error(error.message || '生成大纲失败，请重试');
+      message.error(error.message || t('outlineError'));
     } finally {
       setLoading(false);
     }
@@ -62,7 +69,7 @@ function App() {
   const handleViewDetail = async (module: CourseModule) => {
     setSelectedModule(module);
     setLoading(true);
-    setLoadingMessage('正在生成模块详细内容...');
+    setLoadingMessage(t('generatingDetail'));
 
     try {
       // 调用API生成详情
@@ -75,10 +82,10 @@ function App() {
 
       setModuleDetail(result);
       setView('detail');
-      message.success('模块详情生成成功！');
+      message.success(t('detailSuccess'));
     } catch (error: any) {
       console.error('生成详情失败:', error);
-      message.error(error.message || '生成详情失败，请重试');
+      message.error(error.message || t('detailError'));
       setLoading(false);
     } finally {
       setLoading(false);
@@ -143,11 +150,16 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <div className="app-container">
-        {renderView()}
+    <ConfigProvider locale={locale}>
+      <div className="app">
+        <div className="app-header">
+          <LanguageSwitcher onLocaleChange={setLocale} />
+        </div>
+        <div className="app-container">
+          {renderView()}
+        </div>
       </div>
-    </div>
+    </ConfigProvider>
   );
 }
 

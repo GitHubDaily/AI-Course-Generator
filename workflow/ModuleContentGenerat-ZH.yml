@@ -1,6 +1,6 @@
 flowMeta:
   name: ModuleContentGenerat
-  description: Generate detailed teaching content for individual learning modules
+  description: 为单个学习模块生成详细的教学内容
   avatarIcon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/common/emojiitem_00_10@2x.png
   avatarColor: '#FFEAD5'
   advancedConfig: '{"prologue":{"enabled":true,"inputExample":["","",""]}}'
@@ -23,11 +23,11 @@ flowData:
     data:
       allowInputReference: false
       allowOutputReference: true
-      label: Start
+      label: 开始
       status: success
       nodeMeta:
-        aliasName: Start Node
-        nodeType: Basic Node
+        aliasName: 开始节点
+        nodeType: 基础节点
       inputs: [
         ]
       outputs:
@@ -36,7 +36,7 @@ flowData:
         nameErrMsg: ''
         schema:
           type: string
-          default: Complete information for a single module
+          default: 单个模块的完整信息
         required: true
         deleteDisabled: true
       - id: a96c0ff3-fa15-4bfe-9eac-3d441687de71
@@ -46,14 +46,14 @@ flowData:
           type: string
           properties: [
             ]
-          default: Related textbook original text
+          default: 相关的课本原文
         required: true
       - id: dc0bf878-b946-4def-b49e-af6b84d58aaa
         name: DETAIL_LEVEL
         nameErrMsg: ''
         schema:
           type: string
-          default: Detail level ("standard" / "detailed")
+          default: 详细程度（"standard" / "detailed"）
         required: false
       - id: f970e1a4-4a5e-41ba-b74e-72bf78564768
         name: EXERCISE_COUNT
@@ -62,12 +62,12 @@ flowData:
           type: integer
           properties: [
             ]
-          default: Number of exercises (default 5)
+          default: 练习题数量（默认 5）
         required: false
       nodeParam: {
         }
       icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
-      description: The starting node of the workflow, used to define business variable information required for process invocation.
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
       updatable: false
   - id: node-end::cda617af-551e-462e-b3b8-3bb9a041bf88
     dragging: false
@@ -84,13 +84,13 @@ flowData:
     data:
       allowInputReference: true
       allowOutputReference: false
-      label: End
+      label: 结束
       references: [
         ]
       status: cancel
       nodeMeta:
-        aliasName: End Node
-        nodeType: Basic Node
+        aliasName: 结束节点
+        nodeType: 基础节点
       inputs:
       - id: 82de2b42-a059-4c98-bffb-b6b4800fcac9
         name: detailed_content
@@ -124,9 +124,9 @@ flowData:
         template: ''
         streamOutput: true
         outputMode: 0
-        templateErrMsg: Value cannot be empty
+        templateErrMsg: 值不能为空
       icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
-      description: The ending node of the workflow, used to output the final results after workflow execution.
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
       updatable: false
   - id: spark-llm::5e7f7906-aba9-49cd-8884-a0c7946d8fa5
     dragging: false
@@ -143,14 +143,14 @@ flowData:
     data:
       allowInputReference: true
       allowOutputReference: true
-      label: Detailed Content Generation
+      label: 详细内容生成
       labelEdit: false
       references: [
         ]
       status: failed
       nodeMeta:
-        nodeType: Basic Node
-        aliasName: Large Model
+        nodeType: 基础节点
+        aliasName: 大模型
       inputs:
       - id: d9429aa4-c7e7-4f7c-ae6f-78334d914ee3
         name: MODULE_INFO
@@ -210,123 +210,123 @@ flowData:
         nameErrMsg: ''
         schema:
           type: string
-          default: Large model node output (complete detailed content JSON)
+          default: 大模型节点输出(完整的详细内容 JSON)
       - id: cde30b54-1415-4e33-a212-92f3218a8e71
         name: module_id
         nameErrMsg: ''
         schema:
           type: string
-          default: Parsed from input (Module ID for association)
+          default: 从输入解析(模块ID，用于关联)
         required: false
       nodeParam:
         maxTokens: 2048
         topK: 4
         auditing: default
         template: |-
-          Please generate detailed teaching content for the following learning module.
-          【Module Information】
+          请为以下学习模块生成详细的教学内容。
+          【模块信息】
           {{MODULE_INFO}}
-          【Related Textbook Content】
+          【相关课本内容】
           {{TEXTBOOK_CONTENT}}
-          【Generation Requirements】
-          - Detail level: {{DETAIL_LEVEL}}
-          - Number of exercises: {{EXERCISE_COUNT}}
-          【Output Format】
-          Please strictly output in the following JSON format:
+          【生成要求】
+          - 详细程度：{{DETAIL_LEVEL}}
+          - 练习题数量：{{EXERCISE_COUNT}}
+          【输出格式】
+          请严格按照以下 JSON 格式输出：
           {
-            "module_id": "Module ID",
+            "module_id": "模块ID",
             "teaching_plan": {
               "introduction": {
-                "duration": "Duration (e.g., 5 minutes)",
-                "activity": "Specific introduction activity description",
-                "teacher_guidance": "Teacher guidance or key points",
-                "expected_outcome": "Expected outcome"
+                "duration": "时长（如：5分钟）",
+                "activity": "具体的导入活动描述",
+                "teacher_guidance": "教师引导语或操作要点",
+                "expected_outcome": "预期达成的效果"
               },
               "main_content": {
-                "duration": "Duration (e.g., 25 minutes)",
+                "duration": "时长（如：25分钟）",
                 "activities": [
                   {
-                    "name": "Activity name",
-                    "description": "Detailed activity description",
-                    "duration": "Duration",
-                    "materials": "Required materials",
+                    "name": "活动名称",
+                    "description": "活动详细描述",
+                    "duration": "时长",
+                    "materials": "需要的材料",
                     "steps": [
-                      "Step 1",
-                      "Step 2",
-                      "Step 3"
+                      "步骤1",
+                      "步骤2",
+                      "步骤3"
                     ]
                   }
                 ]
               },
               "practice": {
-                "duration": "Duration (e.g., 8 minutes)",
+                "duration": "时长（如：8分钟）",
                 "activities": [
-                  "Activity 1 description",
-                  "Activity 2 description"
+                  "活动1描述",
+                  "活动2描述"
                 ]
               },
               "summary": {
-                "duration": "Duration (e.g., 2 minutes)",
-                "content": "Summary content",
-                "homework": "Homework (optional)"
+                "duration": "时长（如：2分钟）",
+                "content": "总结内容",
+                "homework": "课后作业（可选）"
               }
             },
             "examples": [
               {
-                "title": "Example title",
-                "content": "Detailed example content (100-200 words)",
-                "purpose": "Teaching purpose explanation",
-                "how_to_use": "Usage suggestions"
+                "title": "案例标题",
+                "content": "案例详细内容（100-200字）",
+                "purpose": "教学目的说明",
+                "how_to_use": "使用建议"
               }
             ],
             "exercises": [
               {
                 "id": "EX001",
-                "type": "Question type (fill-in-blank/multiple-choice/short-answer/true-false)",
-                "question": "Question content",
-                "options": ["Option A", "Option B"],
-                "answer": "Answer",
-                "difficulty": "Difficulty (easy/medium/hard)",
-                "explanation": "Answer explanation (why this answer)",
-                "related_objective": "Related learning objective"
+                "type": "题型（填空/选择/简答/判断）",
+                "question": "题目内容",
+                "options": ["选项A", "选项B"],
+                "answer": "答案",
+                "difficulty": "难度（easy/medium/hard）",
+                "explanation": "答案解析（为什么这样答）",
+                "related_objective": "对应的学习目标"
               }
             ],
             "teaching_tips": [
               {
-                "category": "Category (key emphasis/common issues/differentiated instruction/classroom management)",
-                "tip": "Specific suggestion content"
+                "category": "类别（重点强调/常见问题/差异化教学/课堂管理）",
+                "tip": "具体建议内容"
               }
             ]
           }
-          【Specific Requirements】
-          1. **Teaching Plan:**
-             - Introduction (5 minutes): Design activities to attract student attention
-             - Main content (25-30 minutes): Include 2-3 specific activities with clear steps
-             - Practice (8-10 minutes): Design highly interactive practice activities
-             - Summary (2-5 minutes): Review key points, assign homework
-          2. **Teaching Examples:**
-             - Generate 2-3 examples
-             - Close to students' lives, easy to understand
-             - Support achievement of teaching objectives
-             - Each example 100-200 words
-          3. **Exercises:**
-             - Generate {EXERCISE_COUNT} questions
-             - Type distribution: 40% basic (easy), 40% medium, 20% advanced (hard)
-             - Include multiple question types: fill-in-blank, multiple-choice, short-answer, true-false, etc.
-             - Each question must have an answer and detailed explanation
-             - Explanation should explain "why this answer"
-          4. **Teaching Suggestions:**
-             - Generate 3-5 practical suggestions
-             - Cover: key emphasis, common issue prediction, differentiated instruction, classroom management
-             - Specific and actionable
-          【Important Notes】
-          1. Must output complete, properly formatted JSON
-          2. Do not output any text other than JSON
-          3. Exercise difficulty should be progressive
-          4. Teaching activities should be specific and directly usable by teachers
-          5. All content must be based on the provided module information and textbook content
-          6. Time allocation should be reasonable, total duration should be close to the module's duration_minutes
-          Now please start generating:
+          【具体要求】
+          1. **教学计划：**
+             - 导入环节（5分钟）：设计吸引学生注意力的活动
+             - 主要内容（25-30分钟）：包含2-3个具体活动，每个活动有清晰的步骤
+             - 练习环节（8-10分钟）：设计互动性强的练习活动
+             - 总结环节（2-5分钟）：梳理重点，布置作业
+          2. **教学案例：**
+             - 生成 2-3 个案例
+             - 贴近学生生活，容易理解
+             - 能够支持教学目标的达成
+             - 每个案例 100-200 字
+          3. **练习题：**
+             - 生成 {EXERCISE_COUNT} 道题
+             - 题型分布：40%基础题（easy）、40%中等题（medium）、20%拓展题（hard）
+             - 包含多种题型：填空、选择、简答、判断等
+             - 每道题必须有答案和详细解析
+             - 解析要说明"为什么这样答"
+          4. **教学建议：**
+             - 生成 3-5 条实用建议
+             - 覆盖：重点强调、常见问题预判、差异化教学、课堂管理
+             - 具体可操作
+          【重要提示】
+          1. 必须输出完整的、格式正确的 JSON
+          2. 不要输出任何 JSON 之外的文字
+          3. 练习题的难度要递进
+          4. 教学活动要具体，教师能直接使用
+          5. 所有内容必须基于提供的模块信息和课本内容
+          6. 时间分配要合理，总时长应接近模块的 duration_minutes
+          现在请开始生成：
         respFormat: 0
         appId: 680ab54f
         uid: fa96dc6d-533c-4f09-a6c8-61d336868472
@@ -348,21 +348,21 @@ flowData:
         extraParams:
           temperature: 0.8
         systemTemplate: |-
-          You are an experienced elementary school teacher and instructional design expert, skilled at designing specific teaching activities and exercises.
-          Your tasks:
-          1. Design detailed teaching plans based on module learning objectives
-          2. Create teaching examples close to students' lives
-          3. Write exercises of varying difficulty (with answers and explanations)
-          4. Provide practical teaching suggestions
-          Requirements:
-          - Instructional design should match elementary students' cognitive level and age characteristics
-          - Teaching activities should be specific and actionable, directly usable by teachers
-          - Exercises should be layered, from easy to difficult
-          - Examples should be vivid, interesting, and close to students' lives
-          - Answers and explanations should be accurate and easy to understand
-          - Strictly output in JSON format
+          你是一位经验丰富的小学教师和教学设计专家，擅长设计具体的教学活动和练习题。
+          你的任务是：
+          1. 根据模块的学习目标，设计详细的教学计划
+          2. 创造贴近学生生活的教学案例
+          3. 编写不同难度的练习题（含答案和解析）
+          4. 提供实用的教学建议
+          要求：
+          - 教学设计要符合小学生的认知水平和年龄特点
+          - 教学活动要具体可操作，教师能直接使用
+          - 练习题要有层次性，从易到难
+          - 案例要生动有趣，贴近学生生活
+          - 答案和解析要准确、易懂
+          - 严格按照 JSON 格式输出
       icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/largeModelIcon.png
-      description: Based on the input prompt, calls the selected large model to respond to the prompt
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
       updatable: false
   edges:
   - source: node-start::d61b0f71-87ee-475e-93ba-f1607f0ce783
