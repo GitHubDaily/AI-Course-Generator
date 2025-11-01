@@ -2,11 +2,11 @@
 
 English | [简体中文](./README-ZH.md)
 
-An AI-powered educational tool built on the iFLYTEK Xingchen Agent open-source platform, designed to help teachers quickly generate clear course outlines and high-quality teaching content from textbook materials.
+An AI-powered educational tool built on the iFLYTEK Astron Agent open-source platform, designed to help teachers quickly generate clear course outlines and high-quality teaching content from textbook materials.
 
 ## Introduction
 
-This tool leverages the iFLYTEK Xingchen Agent open-source platform to:
+This tool leverages the iFLYTEK Astron Agent open-source platform to:
 - 📚 Accept textbook content input
 - 🎯 Automatically generate structured course outlines
 - 📝 Create detailed teaching plans, examples, and exercises for each module
@@ -29,7 +29,7 @@ This tool leverages the iFLYTEK Xingchen Agent open-source platform to:
 - **Framework**: FastAPI (Python 3.10+)
 - **HTTP Client**: httpx (async)
 - **Data Validation**: Pydantic
-- **AI Platform**: iFLYTEK Xingchen Agent Open Platform
+- **AI Platform**: iFLYTEK Astron Agent Open Platform
 
 ### Frontend
 - **Framework**: React 18 + TypeScript
@@ -46,8 +46,8 @@ Before you begin, make sure you have:
 
 - ✅ Python 3.10 or higher installed
 - ✅ Node.js 16 or higher installed
-- ✅ Successfully deployed iFLYTEK Xingchen Agent development platform locally
-- ✅ Created and published workflows in the iFLYTEK Xingchen Agent platform
+- ✅ Successfully deployed iFLYTEK Astron Agent development platform locally
+- ✅ Created and published workflows in the iFLYTEK Astron Agent platform
 
 ### 1. Clone the Repository
 
@@ -66,7 +66,7 @@ pip install -r requirements.txt
 
 # Configure environment variables
 cp .env.example .env
-# Edit the .env file and fill in your iFLYTEK Xingchen API credentials and workflow IDs
+# Edit the .env file and fill in your iFLYTEK Astron API credentials and workflow IDs
 
 # Start the backend service
 uvicorn main:app --reload
@@ -151,9 +151,9 @@ After starting the backend, access the API documentation at:
 ### Backend (.env)
 
 ```env
-# Application information from local Xingchen Agent platform
-XINGCHEN_API_KEY=your_api_key
-XINGCHEN_API_SECRET=your_api_secret
+# Application information from local Astron Agent platform
+Astron_API_KEY=your_api_key
+Astron_API_SECRET=your_api_secret
 
 # Workflow IDs
 WORKFLOW_1_ID=your_workflow_1_id  # Course outline generation
@@ -185,8 +185,8 @@ VITE_API_BASE_URL=http://localhost:8000
 
 ## Important Notes
 
-1. **API Credentials**: Valid iFLYTEK Xingchen API credentials are required
-2. **Workflows**: Workflows must be created and configured in the local iFLYTEK Xingchen Agent platform beforehand
+1. **API Credentials**: Valid iFLYTEK Astron API credentials are required
+2. **Workflows**: Workflows must be created and configured in the local iFLYTEK Astron Agent platform beforehand
 3. **Timeout Settings**: API call timeout is set to 120 seconds
 4. **Text Length**: Recommended maximum textbook content length per request is 10,000 characters
 
@@ -203,7 +203,7 @@ VITE_API_BASE_URL=http://localhost:8000
 - Review browser console network requests
 
 ### 3. Generation Fails
-- Verify iFLYTEK Xingchen API credentials are valid
+- Verify iFLYTEK Astron API credentials are valid
 - Confirm workflow IDs are correct
 - Check backend logs for detailed errors
 

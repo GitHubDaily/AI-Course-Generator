@@ -15,13 +15,13 @@
 ## 效果展示
 
 ### 首页 - 输入课本内容
-![首页效果图](demo/home.png)
+![首页效果图](demo/home-zh.png)
 
 ### 课程大纲展示
-![课程大纲](demo/course-outline.png)
+![课程大纲](demo/course-outline-zh.png)
 
 ### 模块详细内容
-![模块详情](demo/module-content.png)
+![模块详情](demo/module-content-zh.png)
 
 ## 技术架构
 
